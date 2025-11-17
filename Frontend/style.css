@@ -1,0 +1,131 @@
+/* --- TEMA ROSA PASTEL TOTAL --- */
+
+/* Un fondo rosa muy, muy pálido para toda la página */
+body {
+    background-color: #FFF9FA !important;
+}
+
+/* --- Paleta de Colores --- */
+:root {
+    --rosa-muy-claro: #fce4ec; /* Para fondos de alertas */
+    --rosa-claro: #ffcdd2;    /* Para bordes y alertas */
+    --rosa-medio: #f48fb1;    /* Color principal de botones y navbar */
+    --rosa-oscuro: #f06292;   /* Para 'hover' (pasar el mouse) */
+    --texto-oscuro: #616161;  /* Texto normal */
+    --texto-rosa: #880e4f;    /* Texto oscuro para fondos rosas */
+}
+
+/* --- Barra de Navegación --- */
+.bg-primary {
+    background-color: var(--rosa-medio) !important;
+    border-color: var(--rosa-medio) !important;
+}
+
+/* --- Estilo para el nuevo link en la Navbar --- */
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #ffffff !important;
+}
+.navbar-dark .navbar-nav .nav-link.active:hover {
+    color: var(--rosa-muy-claro) !important;
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-nav .nav-link {
+    color: #ffffff !important; /* Texto blanco sobre rosa medio */
+}
+.navbar-dark .navbar-brand:hover,
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--rosa-muy-claro) !important;
+}
+
+/* --- Estilo para el Logo en la Navbar --- */
+.navbar-logo {
+    height: 80px;  /* <-- CAMBIA ESTE NÚMERO */
+    width: auto;
+    border-radius: 4px; /* Opcional: redondea las esquinas */
+}
+
+/* --- Bordes de Tarjetas (Todos Rosas) --- */
+.border-primary,
+.border-warning,
+.border-info,
+.card.border-light {
+    border-color: var(--rosa-claro) !important;
+}
+
+/* --- Botones (Todos Rosas) --- */
+.btn-success,
+.btn-warning,
+.btn-info {
+    background-color: var(--rosa-medio) !important;
+    border-color: var(--rosa-medio) !important;
+    color: #ffffff !important;
+}
+.btn-success:hover,
+.btn-warning:hover,
+.btn-info:hover {
+    background-color: var(--rosa-oscuro) !important;
+    border-color: var(--rosa-oscuro) !important;
+}
+
+/* --- Botón Delineado (Rosa) --- */
+.btn-outline-info {
+    color: var(--rosa-oscuro) !important;
+    border-color: var(--rosa-oscuro) !important;
+}
+.btn-outline-info:hover {
+    color: #ffffff !important;
+    background-color: var(--rosa-oscuro) !important;
+    border-color: var(--rosa-oscuro) !important;
+}
+
+/* --- Barra de Progreso (Rosa) --- */
+.bg-warning {
+    background-color: var(--rosa-medio) !important;
+}
+
+/* --- Alertas de Resultado (Tonos de Rosa) --- */
+#result-label.alert-secondary { /* Default */
+    background-color: var(--rosa-muy-claro);
+    color: var(--texto-oscuro);
+    border-color: var(--rosa-claro);
+}
+#result-label.alert-warning { /* Clase 0 (Amarillo) */
+    background-color: var(--rosa-muy-claro);
+    color: var(--texto-rosa);
+    border-color: var(--rosa-claro);
+    font-weight: bold;
+}
+#result-label.alert-danger { /* Clase 1 (Rojo) */
+    background-color: var(--rosa-claro);
+    color: var(--texto-rosa);
+    border-color: var(--rosa-medio);
+    font-weight: bold;
+}
+
+
+/* --- Estilos de Gráficas (ya definidos) --- */
+#plot-3d-container {
+    width: 100%;
+    height: 70vh;
+    min-height: 500px;
+}
+#plot-3d {
+    width: 100%;
+    height: 100%;
+}
+#loss-chart-container {
+    width: 100%;
+    height: 250px;
+    border: 1px solid var(--rosa-claro); /* Borde rosa */
+    border-radius: 5px;
+    background-color: #fff;
+}
+#loss-chart {
+    width: 100%;
+    height: 100%;
+}
+#result-label {
+    font-size: 1.1rem;
+}
+
