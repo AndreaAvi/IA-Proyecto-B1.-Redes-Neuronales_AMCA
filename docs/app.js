@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Conexión WebSocket ---
     // Se conecta automáticamente al servidor Flask
-    const socket = io();
+    const socket = io("https://ia-proyecto-b1-redes-neuronales-amca.onrender.com");
 
     socket.on('connect', () => {
         console.log('Conectado al servidor WebSocket');
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('/api/predict', {
+            const response = await fetch('https://ia-proyecto-b1-redes-neuronales-amca.onrender.com/api/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ x, y, z })
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     async function updatePlot3D(newPointData = null) {
         try {
-            const response = await fetch('/api/plot_data');
+            const response = await fetch('https://ia-proyecto-b1-redes-neuronales-amca.onrender.com/api/plot_data');
             if (!response.ok) throw new Error('No se pudieron cargar los datos de la gráfica.');
 
             const data = await response.json(); // ej: {"region0": [[...]], "region1": [[...]], ...}
