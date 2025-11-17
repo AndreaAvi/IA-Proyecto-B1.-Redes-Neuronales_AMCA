@@ -213,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CAMBIOS 4, 5, 6 (Comprobación) ---
     if (btnPredict) btnPredict.addEventListener('click', handlePredict);
     if (btnTrain) btnTrain.addEventListener('click', handleTrain);
-    if (btnUpdatePlot) btnUpdatePlot.addEventListener('click', () => updatePlot3D());
 
     // --- Carga Inicial ---
     updatePlot3D();
