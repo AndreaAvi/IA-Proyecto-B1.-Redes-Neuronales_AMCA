@@ -30,7 +30,7 @@ STATS_PATH = os.path.join(BASE_DIR, "norm_stats.json")
 FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend'))
 
 app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='/')
-CORS(app) # Permitir peticiones desde el frontend (http://127.0.0.1:5000)
+CORS(app, resources={r"/api/*": {"origins": "*"}}) # <-- REEMPLAZA CON ESTA LÍNEA
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Modelo y stats en memoria
