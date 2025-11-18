@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const layoutLoss = {
-    title: "Curva de Loss (Entrenamiento)",
+    title: "Curva de Costo (Entrenamiento)",
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
     font: { color: "#333" },
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       gridcolor: "#e0e0e0",
     },
     yaxis: {
-      title: "Loss (Binary Cross-Entropy)",
+      title: "Costo",
       gridcolor: "#e0e0e0",
     },
     margin: { l: 50, r: 20, b: 40, t: 40 },
