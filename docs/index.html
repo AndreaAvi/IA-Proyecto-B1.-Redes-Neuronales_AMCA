@@ -1,103 +1,125 @@
+<!--
+    Andrea Marcela Cáceres Avitia (Inteligencia Artificial 2026-I)
+    IA. Proyecto B1: Redes Neuronales
+    Clase: index.html
+    Descripción: Página principal para display de la red.
+        Usa bootstrap para estilos.
+-->
+
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IA. Redes Neuronales - Proyecto B1_AMCA</title>
-    
-    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/5/minty/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="logo.png" alt="Mi Logo" class="navbar-logo me-2">
-                IA. Redes Neuronales - Proyecto B1
-            </a>
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="logo.png" alt="Mi Logo" class="navbar-logo me-2" />
+          IA. Redes Neuronales - Proyecto B1
+        </a>
 
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="cover.html">Créditos</a>
-                </li>
-            </ul>
-        </div>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="cover.html">Créditos</a>
+          </li>
+        </ul>
+      </div>
     </nav>
 
     <div class="container mt-4">
-        <div class="row">
+      <div class="row">
+        <div class="card border-warning mb-3">
+          <div class="card-header"><strong>Parte 1:</strong> Entrenar</div>
+          <div class="card-body">
+            <p>Inicia un nuevo entrenamiento (8000 epochs) en el servidor.</p>
+            <button class="btn btn-warning w-100" id="btn-train">
+              Iniciar Entrenamiento
+            </button>
 
-            <div class="card border-warning mb-3">
-                    <div class="card-header"><strong>Parte 1:</strong> Entrenar</div>
-                    <div class="card-body">
-                        <p>Inicia un nuevo entrenamiento (8000 epochs) en el servidor.</p>
-                        <button class="btn btn-warning w-100" id="btn-train">Iniciar Entrenamiento</button>
-                        
-                        <label class="form-label mt-3">Progreso:</label>
-                        <div class="progress mb-2">
-                            <div id="train-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 0%"></div>
-                        </div>
-                        <div id="train-status" class="form-text">Listo para entrenar.</div>
-
-                        <div id="loss-chart-container" class="mt-3">
-                            <div id="loss-chart"></div>
-                        </div>
-                    </div>
-                </div>
-
-            <div class="col-lg-4">
-                
-                <div class="card border-primary mb-3">
-                    <div class="card-header"><strong>Parte 2: </strong>Producción</div>
-                    <div class="card-body">
-                        <div class="mb-2">
-                            <label for="entry-x" class="form-label">Coordenada X:</label>
-                            <input type="number" class="form-control" id="entry-x" value="3.0">
-                        </div>
-                        <div class="mb-2">
-                            <label for="entry-y" class="form-label">Coordenada Y:</label>
-                            <input type="number" class="form-control" id="entry-y" value="12.0">
-                        </div>
-                        <div class="mb-3">
-                            <label for="entry-z" class="form-label">Coordenada Z:</label>
-                            <input type="number" class="form-control" id="entry-z" value="-5.0">
-                        </div>
-                        <button class="btn btn-success w-100" id="btn-predict">Predecir</button>
-                        
-                        <hr>
-                        <h5 class="card-title mt-3">Resultado:</h5>
-                        <div id="result-label" class="alert alert-secondary text-center">
-                            Ingresa valores para predecir
-                        </div>
-                    </div>
-                </div>
-
-                
-
+            <label class="form-label mt-3">Progreso:</label>
+            <div class="progress mb-2">
+              <div
+                id="train-progress-bar"
+                class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                role="progressbar"
+                style="width: 0%"
+              ></div>
             </div>
+            <div id="train-status" class="form-text">Listo para entrenar.</div>
 
-            <div class="col-lg-8">
-                <div class="card border-light shadow-sm">
-                    <div class="card-header">Visualización </div>
-                    <div class="card-body">
-                        <div id="plot-3d-container">
-                            <div id="plot-3d"></div>
-                        </div>
-                    </div>
-                </div>
+            <div id="loss-chart-container" class="mt-3">
+              <div id="loss-chart"></div>
             </div>
-
+          </div>
         </div>
+
+        <div class="col-lg-4">
+          <div class="card border-primary mb-3">
+            <div class="card-header"><strong>Parte 2: </strong>Producción</div>
+            <div class="card-body">
+              <div class="mb-2">
+                <label for="entry-x" class="form-label">Coordenada X:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="entry-x"
+                  value="3.0"
+                />
+              </div>
+              <div class="mb-2">
+                <label for="entry-y" class="form-label">Coordenada Y:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="entry-y"
+                  value="12.0"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="entry-z" class="form-label">Coordenada Z:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="entry-z"
+                  value="-5.0"
+                />
+              </div>
+              <button class="btn btn-success w-100" id="btn-predict">
+                Predecir
+              </button>
+
+              <hr />
+              <h5 class="card-title mt-3">Resultado:</h5>
+              <div id="result-label" class="alert alert-secondary text-center">
+                Ingresa valores para predecir
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="card border-light shadow-sm">
+            <div class="card-header">Visualización</div>
+            <div class="card-body">
+              <div id="plot-3d-container">
+                <div id="plot-3d"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    
-
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="app.js" defer></script>
-
-</body>
+  </body>
 </html>
