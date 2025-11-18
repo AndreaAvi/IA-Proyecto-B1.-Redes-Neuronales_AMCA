@@ -1,15 +1,18 @@
 """
-Servidor Backend (Flask + SocketIO)
-Expone la API para predecir, entrenar y obtener datos de la gráfica.
+    Andrea Marcela Cáceres Avitia (Inteligencia Artificial 2026-I)
+    IA. Proyecto B1: Redes Neuronales
+    Clase: app.py
+    Descripción: Backend del servidor. Escrito en Python
+    y usa Flask y SocketIO.
 """
 import os
 import threading
 import numpy as np
 from flask import Flask, jsonify, request, send_from_directory
 from flask_socketio import SocketIO
-from flask_cors import CORS # Necesario para desarrollo local
+from flask_cors import CORS 
 
-# Importar toda la lógica del MLP
+# Importar la lógica del MLP.
 from mlp_logic import (
     MLP,
     X, y, Xn,
@@ -21,19 +24,18 @@ from mlp_logic import (
     get_plot_data
 )
 
-# -----------------------------
-# CONFIGURACIÓN
-# -----------------------------
+# Configuración inicial.
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "modelo.npz")
 STATS_PATH = os.path.join(BASE_DIR, "norm_stats.json")
 FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend'))
 
+# Inicialización de app.
 app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='/')
 CORS(app, resources={r"/api/*": {"origins": "*"}}) # <-- REEMPLAZA CON ESTA LÍNEA
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-# Modelo y stats en memoria
+# Modelo y stats en memoria. Para que cargue el modelo una sóla vez.
 current_model = MLP()
 current_mu = default_mu
 current_sigma = default_sigma
@@ -48,17 +50,13 @@ except FileNotFoundError:
 except Exception as e:
     print(f"Error cargando modelo/stats: {e}")
 
-# -----------------------------
-# RUTAS ESTÁTICAS (Sirven el Frontend)
-# -----------------------------
+# Rutas estáticas.
 @app.route('/')
 def index():
-    # Sirve el index.html principal
+    # Sirve el index.html.
     return app.send_static_file('index.html')
 
-# -----------------------------
-# API: PREDICCIÓN
-# -----------------------------
+# Peticiones fetch.
 @app.route('/api/predict', methods=['POST'])
 def api_predict():
     try:
@@ -67,11 +65,11 @@ def api_predict():
         y = float(data['y'])
         z = float(data['z'])
 
-        # Normalizar
+        # Normaliza datos usando la media y desviación que se usó para entrenar.
         xp = np.array([[x],[y],[z]])
         xp_n = (xp - current_mu) / current_sigma
         
-        # Predecir
+        # Predice usando el modelo cargado.
         prob = float(current_model.predict_prob(xp_n).item())
         clase = int(prob >= 0.5)
 
@@ -80,9 +78,7 @@ def api_predict():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-# -----------------------------
-# API: DATOS DE LA GRÁFICA
-# -----------------------------
+# Datos de la gráfica.
 @app.route('/api/plot_data', methods=['GET'])
 def api_plot_data():
     try:
@@ -91,20 +87,17 @@ def api_plot_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# -----------------------------
-# API: DESCARGAR MODELO
-# -----------------------------
+# Devuelve JSON con datos obtenidos.
 @app.route('/api/download_model', methods=['GET'])
 def api_download_model():
     try:
-        # Envía el archivo .npz
+        # Envía el archivo .npz.
         return send_from_directory(BASE_DIR, 'modelo.npz', as_attachment=True)
     except FileNotFoundError:
         return jsonify({"error": "Modelo no encontrado"}), 404
 
-# -----------------------------
-# WEBSOCKETS: ENTRENAMIENTO
-# -----------------------------
+# SECCIÓN WEBSOCKETS
+
 @socketio.on('connect')
 def handle_connect():
     print('Cliente conectado al WebSocket')
@@ -113,29 +106,30 @@ def handle_connect():
 def handle_disconnect():
     print('Cliente desconectado')
 
+# Solución de hilos.
+# Si se usara directamente, se congelaría todo, por eso se usan sockets.
 @socketio.on('start_training')
 def handle_start_training():
-    """ Inicia el entrenamiento en un hilo separado para no bloquear el servidor. """
-    
+    # Delega el entrenamiendo en un hilo separado.
     def socket_progress_callback(ep, total, loss, losses):
-        """ Callback que envía progreso al cliente via WebSocket. """
+        # Envía progreso al cliente con sockets.
         pct = int((ep / max(1, total)) * 100)
-        # Usamos socketio.emit para enviar al cliente
+        # Usa socketio.emit para enviar al cliente.
         socketio.emit('training_progress', {
             'epoch': ep,
             'total_epochs': total,
             'loss': loss,
             'pct': pct,
-            'losses': losses # Enviamos el historial de losses
+            'losses': losses # Envía historial de losses.
         })
 
     def run_training_thread():
-        """ El trabajo real de entrenamiento. """
+        # Aquí empieza el entrenamiento.
         global current_model, current_mu, current_sigma
         print("Iniciando hilo de entrenamiento...")
         
         try:
-            # Reseteamos el modelo y stats a los de los datos
+            # Resetea el modelo y stats a los de los datos.
             new_model = MLP()
             new_mu = X.mean(axis=1, keepdims=True)
             new_sigma = X.std(axis=1, keepdims=True) + 1e-8
@@ -162,15 +156,12 @@ def handle_start_training():
             print(f"Error en el hilo de entrenamiento: {e}")
             socketio.emit('training_error', {"error": str(e)})
 
-    # Iniciar el hilo
+    # Iniciar el hilo.
     thread = threading.Thread(target=run_training_thread, daemon=True)
     thread.start()
 
-# -----------------------------
-# INICIAR SERVIDOR
-# -----------------------------
+# Iniciar el servidor.
 if __name__ == '__main__':
     print(f"Sirviendo frontend desde: {FRONTEND_DIR}")
     print("Iniciando servidor Flask en http://127.0.0.1:5000")
-    # Usamos socketio.run() en lugar de app.run()
     socketio.run(app, host='0.0.0.0', port=5000, debug=True, allow_unsafe_werkzeug=True)
