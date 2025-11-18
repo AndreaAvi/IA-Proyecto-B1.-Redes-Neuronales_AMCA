@@ -47,11 +47,36 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const layoutLoss = {
-        title: 'Curva de Loss (Entrenamiento)',
-        xaxis: { title: 'Epoch' },
-        yaxis: { title: 'Loss (Binary Cross-Entropy)' },
-        margin: { l: 50, r: 20, b: 40, t: 40 }
-    };
+        title: 'Curva de Loss (Entrenamiento)',
+        // --- CAMBIOS AQUI ---
+        // Fondo transparente para que se vea el fondo de la página
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        
+        // Estilo de fuente más armonioso
+        font: {
+            family: 'Arial, sans-serif', // O la fuente que uses en tu CSS
+            size: 12,
+            color: '#333' // Gris oscuro para los textos
+        },
+        // --- FIN CAMBIOS ---
+        xaxis: {
+            title: 'Epoch',
+            // --- CAMBIOS AQUI ---
+            gridcolor: '#e0e0e0', // Rejilla más suave
+            zerolinecolor: '#c0c0c0' // Línea de cero más suave
+            // --- FIN CAMBIOS ---
+        },
+        yaxis: {
+            title: 'Loss (Binary Cross-Entropy)',
+            // --- CAMBIOS AQUI ---
+            gridcolor: '#e0e0e0', // Rejilla más suave
+            zerolinecolor: '#c0c0c0' // Línea de cero más suave
+            // --- FIN CAMBIOS ---
+        },
+        margin: { l: 50, r: 20, b: 40, t: 40 },
+        hovermode: 'x unified' // Un tooltip de "hover" más limpio
+    };
 
 
     // --- Funciones de API ---
