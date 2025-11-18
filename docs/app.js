@@ -132,15 +132,15 @@ document.addEventListener("DOMContentLoaded", () => {
           x: [],
           y: [],
           mode: "lines",
-          name: "Loss", // --- INICIAN CAMBIOS ---
+          name: "Loss", 
           type: "scatter",
           line: {
-            color: lossColor, // <-- #f48fb1
+            color: lossColor, 
             width: 2.5,
-            shape: "spline", // <-- Línea suavizada
+            shape: "spline", 
           },
-          fill: "tozeroy", // <-- Relleno
-          fillcolor: "rgba(244, 143, 177, 0.1)", // <-- #f48fb1 con 10% de opacidad // --- TERMINAN CAMBIOS ---
+          fill: "tozeroy", 
+          fillcolor: "rgba(244, 143, 177, 0.1)", 
         },
       ],
       layoutLoss
@@ -262,8 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } | Loss: ${data.loss.toFixed(6)}`;
 
     // Actualiza la gráfica de loss.
-    // Actualiza la gráfica de loss.
-    const lossColor = "#f48fb1"; // <-- TU ROSA MEDIO
+    const lossColor = "#f48fb1"; 
 
     Plotly.react(
       "loss-chart",
@@ -275,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ),
           y: data.losses,
           mode: "lines",
-          name: "Loss", // --- INICIAN CAMBIOS (Idénticos al Paso 2) ---
+          name: "Loss", 
           type: "scatter",
           line: {
             color: lossColor,
@@ -283,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
             shape: "spline",
           },
           fill: "tozeroy",
-          fillcolor: "rgba(244, 143, 177, 0.1)", // --- TERMINAN CAMBIOS ---
+          fillcolor: "rgba(244, 143, 177, 0.1)", 
         },
       ],
       layoutLoss
