@@ -47,23 +47,21 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const layoutLoss = {
-        title: 'Curva de Loss (Entrenamiento)',
-        // --- INICIAN CAMBIOS ---
-        paper_bgcolor: 'rgba(0,0,0,0)', // Fondo del papel transparente
-        plot_bgcolor: 'rgba(0,0,0,0)', // Fondo de la gráfica transparente
-        font: { color: '#333' }, // Color de fuente un poco más suave
-        hovermode: 'x unified',
-        // --- TERMINAN CAMBIOS ---
-        xaxis: { 
-            title: 'Epoch',
-            gridcolor: '#e0e0e0' // Rejilla más suave
-        },
-        yaxis: { 
-            title: 'Loss (Binary Cross-Entropy)',
-            gridcolor: '#e0e0e0' // Rejilla más suave
-        },
-        margin: { l: 50, r: 20, b: 40, t: 40 }
-    };
+    title: "Curva de Loss (Entrenamiento)",
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    font: { color: "#333" },
+    hovermode: "x unified",
+    xaxis: {
+      title: "Epoch",
+      gridcolor: "#e0e0e0",
+    },
+    yaxis: {
+      title: "Loss (Binary Cross-Entropy)",
+      gridcolor: "#e0e0e0",
+    },
+    margin: { l: 50, r: 20, b: 40, t: 40 },
+  };
 
   // --- Funciones de API ---
 
@@ -125,25 +123,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Limpia la gráfica.
-    // Prepara la gráfica de loss con los nuevos estilos
-        const lossColor = '#1ABC9C'; // Tu color verde/teal
+    const lossColor = "#f48fb1";
 
-        Plotly.newPlot('loss-chart', [{ 
-            x: [], 
-            y: [], 
-            mode: 'lines', 
-            name: 'Loss',
-            // --- INICIAN CAMBIOS ---
-            type: 'scatter',
-            line: {
-                color: lossColor,
-                width: 2.5,
-                shape: 'spline' // <-- Línea suavizada
-            },
-            fill: 'tozeroy', // <-- Relleno hasta el eje Y (cero)
-            fillcolor: 'rgba(26, 188, 156, 0.1)' // <-- Mismo color con 10% de opacidad
-            // --- TERMINAN CAMBIOS ---
-        }], layoutLoss);
+    Plotly.newPlot(
+      "loss-chart",
+      [
+        {
+          x: [],
+          y: [],
+          mode: "lines",
+          name: "Loss", // --- INICIAN CAMBIOS ---
+          type: "scatter",
+          line: {
+            color: lossColor, // <-- #f48fb1
+            width: 2.5,
+            shape: "spline", // <-- Línea suavizada
+          },
+          fill: "tozeroy", // <-- Relleno
+          fillcolor: "rgba(244, 143, 177, 0.1)", // <-- #f48fb1 con 10% de opacidad // --- TERMINAN CAMBIOS ---
+        },
+      ],
+      layoutLoss
+    );
     // Manda instrucción de empezar a entrenar.
     socket.emit("start_training");
   }
@@ -262,24 +263,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Actualiza la gráfica de loss.
     // Actualiza la gráfica de loss.
-        const lossColor = '#1ABC9C'; // Mismo color
+    const lossColor = "#f48fb1"; // <-- TU ROSA MEDIO
 
-        Plotly.react('loss-chart', [{ 
-            x: Array.from({ length: data.losses.length }, (_, i) => i * (data.total_epochs / data.losses.length)),
-            y: data.losses, 
-            mode: 'lines', 
-            name: 'Loss',
-            // --- INICIAN CAMBIOS (Idénticos al Paso 2) ---
-            type: 'scatter',
-            line: {
-                color: lossColor,
-                width: 2.5,
-                shape: 'spline'
-            },
-            fill: 'tozeroy',
-            fillcolor: 'rgba(26, 188, 156, 0.1)'
-            // --- TERMINAN CAMBIOS ---
-        }], layoutLoss);
+    Plotly.react(
+      "loss-chart",
+      [
+        {
+          x: Array.from(
+            { length: data.losses.length },
+            (_, i) => i * (data.total_epochs / data.losses.length)
+          ),
+          y: data.losses,
+          mode: "lines",
+          name: "Loss", // --- INICIAN CAMBIOS (Idénticos al Paso 2) ---
+          type: "scatter",
+          line: {
+            color: lossColor,
+            width: 2.5,
+            shape: "spline",
+          },
+          fill: "tozeroy",
+          fillcolor: "rgba(244, 143, 177, 0.1)", // --- TERMINAN CAMBIOS ---
+        },
+      ],
+      layoutLoss
+    );
   });
 
   // Se activa cuando termina el entrenamiento.
